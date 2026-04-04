@@ -1,0 +1,95 @@
+﻿/* ======================================================
+   CSS: header.css
+   Hero-like page header with stronger visual hierarchy.
+   ====================================================== */
+
+.page-header {
+  width: min(1500px, 97%);
+  margin: 22px auto 0;
+  background: linear-gradient(120deg, rgba(255,255,255,0.94), rgba(245,250,248,0.88));
+  border: 1px solid rgba(216, 230, 226, 0.95);
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px clamp(14px, 2vw, 28px);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::after {
+  content: '';
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  right: -80px;
+  top: -90px;
+  background: radial-gradient(circle at center, var(--bg-grad-3), transparent 70%);
+  pointer-events: none;
+}
+
+.header-brand {
+  display: flex;
+  align-items: flex-start;
+  flex: 1;
+  min-width: 0;
+}
+
+.header-brand-title h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.55rem, 2.4vw, 2.15rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+}
+
+.header-brand-title p {
+  font-size: 0.93rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-top: 7px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.btn-icon-minimal {
+  height: 38px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 11px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: all var(--dur-base) var(--ease-smooth);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-icon-minimal:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-icon-minimal.with-text {
+  width: auto;
+  padding: 0 14px;
+  gap: 7px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.btn-icon-minimal:not(.with-text) {
+  width: 38px;
+}

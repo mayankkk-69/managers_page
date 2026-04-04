@@ -1,0 +1,71 @@
+/* ======================================================
+   CSS: toast.css
+   Slide-in toast notification system — container,
+   individual toast cards, icon bubbles and types.
+   ====================================================== */
+
+/* ── Container (fixed, bottom-right) ─────────────── */
+#toastContainer {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+/* ── Toast Card ───────────────────────────────────── */
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  box-shadow: var(--shadow-xl);
+  min-width: 260px;
+  max-width: 360px;
+  pointer-events: all;
+  animation: toastIn var(--dur-slow) var(--ease-spring) forwards;
+}
+
+/* Exit animation triggered by JS */
+.toast.exit {
+  animation: toastOut var(--dur-base) var(--ease-smooth) forwards;
+}
+
+/* ── Icon Bubble ──────────────────────────────────── */
+.toast-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.toast-icon svg { width: 16px; height: 16px; }
+
+/* Type-specific icon colors */
+.toast.success .toast-icon { background: var(--present-bg); color: var(--present-dot); }
+.toast.error   .toast-icon { background: var(--absent-bg);  color: var(--absent-dot); }
+.toast.info    .toast-icon { background: var(--accent-light); color: var(--accent-primary); }
+
+/* ── Toast Text ───────────────────────────────────── */
+.toast-content { flex: 1; }
+
+.toast-title {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--text-primary);
+}
+
+.toast-msg {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}

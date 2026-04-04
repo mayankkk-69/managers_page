@@ -1,0 +1,49 @@
+<!-- ══════════════════════════════════════════════
+     COMPONENT: control-bar.html
+     Sticky filter row: Search, Date picker,
+     Status dropdown and Department chip selectors.
+════════════════════════════════════════════════ -->
+<div class="control-bar" role="search" aria-label="Filter attendance records">
+
+  <!-- Search Input -->
+  <div class="search-wrap">
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="Search employee name or ID..."
+      aria-label="Search employees"
+      autocomplete="off"
+    />
+    <i data-feather="search" style="width:16px;height:16px;"></i>
+  </div>
+
+  <!-- Date Picker -->
+  <div class="date-wrap">
+    <i data-feather="calendar" style="width:15px;height:15px;"></i>
+    <input type="date" id="datePicker" aria-label="Select attendance date" />
+  </div>
+
+  <!-- Status Filter Dropdown -->
+  <div class="select-wrap">
+    <select id="statusFilter" aria-label="Filter by attendance status">
+      <option value="all">All Status</option>
+      <option value="present">Present</option>
+      <option value="absent">Absent</option>
+      <option value="late">Late</option>
+      <option value="leave">On Leave</option>
+    </select>
+    <i data-feather="chevron-down" style="width:15px;height:15px;"></i>
+  </div>
+
+  <!-- Department Chips -->
+  <div class="chips-wrap" id="deptChips" aria-label="Filter by department">
+    <span class="chips-label">Dept:</span>
+    <button class="chip active" data-dept="all"     aria-pressed="true">All</button>
+    <button class="chip"        data-dept="it"      aria-pressed="false">IT</button>
+    <button class="chip"        data-dept="sales"   aria-pressed="false">Sales</button>
+    <button class="chip"        data-dept="hr"      aria-pressed="false">HR</button>
+    <button class="chip"        data-dept="finance" aria-pressed="false">Finance</button>
+    <button class="chip"        data-dept="ops"     aria-pressed="false">Operations</button>
+  </div>
+
+</div>

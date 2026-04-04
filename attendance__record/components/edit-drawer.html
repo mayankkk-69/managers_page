@@ -1,0 +1,183 @@
+<!-- ══════════════════════════════════════════════
+     COMPONENT: edit-drawer.html
+     Manager's Attendance Override Panel.
+     Opens when a row is clicked.
+     Contains:
+     - Employee profile header
+     - Today's scheduled vs actual punch times
+     - Punch In / Punch Out override inputs
+     - Status override selector
+     - Manager Reason (mandatory for audit log)
+     - 3-day attendance history timeline
+     - Save / Cancel footer
+════════════════════════════════════════════════ -->
+
+<!-- Semi-transparent overlay behind the drawer -->
+<div class="drawer-overlay" id="drawerOverlay"
+     role="presentation" aria-hidden="true"></div>
+
+<aside class="drawer" id="editDrawer"
+       role="dialog" aria-modal="true"
+       aria-label="Edit Employee Attendance"
+       aria-hidden="true" tabindex="-1">
+
+  <!-- ── Drawer Header ─────────────────────────── -->
+  <div class="drawer-header">
+    <div class="drawer-emp-info">
+      <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">--</div>
+      <div>
+        <p class="drawer-emp-name" id="drawerEmpName">Loading...</p>
+        <p class="drawer-emp-role" id="drawerEmpRole">--</p>
+        <span class="drawer-emp-dept" id="drawerEmpDept">
+          <i data-feather="grid" style="width:10px;height:10px;"></i>
+          <span id="drawerDeptLabel">--</span>
+        </span>
+      </div>
+    </div>
+    <button class="drawer-close" id="drawerClose" aria-label="Close edit panel">
+      <i data-feather="x" style="width:16px;height:16px;"></i>
+    </button>
+  </div>
+
+  <!-- ── Drawer Scrollable Body ─────────────────── -->
+  <div class="drawer-body">
+
+    <!-- ── TODAY'S PUNCH OVERVIEW ─────────────── -->
+    <div class="drawer-section">
+      <h2 class="drawer-section-title">Today's Punch Record</h2>
+      <div class="stat-grid">
+        <div class="stat-item">
+          <p class="stat-item-label">Scheduled In</p>
+          <p class="stat-item-value" id="drawerScheduledIn">9:00 AM</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-item-label">Actual Punch In</p>
+          <p class="stat-item-value" id="drawerActualIn">--</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-item-label">Scheduled Out</p>
+          <p class="stat-item-value" id="drawerScheduledOut">6:00 PM</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-item-label">Actual Punch Out</p>
+          <p class="stat-item-value" id="drawerActualOut">--</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MANAGER OVERRIDE: PUNCH TIMES ──────── -->
+    <div class="drawer-section">
+      <h2 class="drawer-section-title">Override Punch Timings</h2>
+      <p class="drawer-section-desc">
+        Corrected times will be saved with your manager ID as the modifier.
+      </p>
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label" for="editCheckIn">
+            <i data-feather="log-in" style="width:12px;height:12px;margin-right:4px;vertical-align:middle;"></i>
+            Punch In Time
+          </label>
+          <input type="time" class="form-input" id="editCheckIn"
+                 aria-label="Override punch-in time" />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="editCheckOut">
+            <i data-feather="log-out" style="width:12px;height:12px;margin-right:4px;vertical-align:middle;"></i>
+            Punch Out Time
+          </label>
+          <input type="time" class="form-input" id="editCheckOut"
+                 aria-label="Override punch-out time" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ATTENDANCE STATUS OVERRIDE ────────── -->
+    <div class="drawer-section">
+      <h2 class="drawer-section-title">Attendance Status</h2>
+      <div class="status-selector" role="group" aria-label="Attendance status options">
+
+        <label class="status-option opt-present" for="optPresent">
+          <input type="radio" name="editStatus" id="optPresent" value="present" />
+          <span class="status-opt-dot present"></span>
+          <span class="status-opt-label">Present</span>
+        </label>
+
+        <label class="status-option opt-absent" for="optAbsent">
+          <input type="radio" name="editStatus" id="optAbsent" value="absent" />
+          <span class="status-opt-dot absent"></span>
+          <span class="status-opt-label">Absent</span>
+        </label>
+
+        <label class="status-option opt-late" for="optLate">
+          <input type="radio" name="editStatus" id="optLate" value="late" />
+          <span class="status-opt-dot late"></span>
+          <span class="status-opt-label">Late</span>
+        </label>
+
+        <label class="status-option opt-leave" for="optLeave">
+          <input type="radio" name="editStatus" id="optLeave" value="leave" />
+          <span class="status-opt-dot leave"></span>
+          <span class="status-opt-label">On Leave</span>
+        </label>
+
+      </div>
+    </div>
+
+    <!-- ── MANAGER REASON (AUDIT LOG) ─────────── -->
+    <div class="drawer-section">
+      <h2 class="drawer-section-title">Reason for Change
+        <span class="required-tag">Required for Audit</span>
+      </h2>
+      <div class="form-field">
+        <label class="form-label" for="editReason">Manager's Note</label>
+        <textarea class="form-textarea" id="editReason"
+                  placeholder="e.g. Employee reported system did not record punch. Verified via CCTV and corrected manually."
+                  aria-label="Reason for this attendance correction (saved to audit log)"></textarea>
+        <p class="form-hint">
+          <i data-feather="info" style="width:11px;height:11px;"></i>
+          This note is saved in the audit log along with your Manager ID and timestamp.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── 3-DAY HISTORY TIMELINE ──────────────── -->
+    <div class="drawer-section">
+      <h2 class="drawer-section-title">Recent Attendance History</h2>
+      <div class="timeline" id="drawerTimeline"
+           aria-label="Recent attendance history">
+        <!-- Populated by drawer.js -->
+        <div class="timeline-item">
+          <div class="timeline-dot present">
+            <i data-feather="check" style="width:11px;height:11px;"></i>
+          </div>
+          <div class="timeline-body">
+            <p class="timeline-date">Loading...</p>
+            <p class="timeline-status">--</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── AUDIT TRAIL (previous changes) ─────── -->
+    <div class="drawer-section">
+      <h2 class="drawer-section-title">Audit Trail</h2>
+      <div id="drawerAuditLog" class="audit-log">
+        <p class="audit-empty">No manual changes recorded for today.</p>
+      </div>
+    </div>
+
+  </div>
+  <!-- /Drawer Body -->
+
+  <!-- ── Drawer Footer ─────────────────────────── -->
+  <div class="drawer-footer">
+    <button class="btn-secondary btn-full" id="drawerCancelBtn"
+            aria-label="Cancel editing">Cancel</button>
+    <button class="btn-primary btn-full" id="drawerSaveBtn"
+            aria-label="Save attendance correction">
+      <i data-feather="save" style="width:13px;height:13px;"></i>
+      Save &amp; Log Change
+    </button>
+  </div>
+
+</aside>

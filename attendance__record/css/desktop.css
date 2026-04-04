@@ -1,0 +1,64 @@
+﻿/* ======================================================
+   CSS: desktop.css
+   Large-screen layout refinements.
+   ====================================================== */
+
+@media (min-width: 769px) {
+  .page-header {
+    width: min(1500px, 97%);
+    margin-top: 20px;
+    padding: 24px clamp(16px, 2vw, 28px);
+  }
+
+  .kpi-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+  }
+
+  .control-bar {
+    width: 100%;
+  }
+
+  .search-wrap {
+    flex: 1 1 30%;
+  }
+
+  #attendanceTable {
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  #attendanceTable th:nth-child(1) { width: 28%; }
+  #attendanceTable th:nth-child(2) { width: 12%; }
+  #attendanceTable th:nth-child(3) { width: 10%; }
+  #attendanceTable th:nth-child(4) { width: 13%; }
+  #attendanceTable th:nth-child(5) { width: 13%; }
+  #attendanceTable th:nth-child(6) { width: 24%; }
+
+  .drawer {
+    width: min(620px, 55vw);
+    max-height: 86vh;
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1400px) {
+  html {
+    font-size: 14.5px;
+  }
+
+  .main-wrapper {
+    width: min(1540px, 97%);
+  }
+
+  .page-header {
+    width: min(1540px, 97%);
+  }
+}

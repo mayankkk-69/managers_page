@@ -1,0 +1,50 @@
+<!-- ══════════════════════════════════════════════
+     COMPONENT: kpi-modal.html
+     Drill-down modal triggered by clicking KPI cards.
+════════════════════════════════════════════════ -->
+
+<div class="kpi-overlay" id="kpiOverlay" aria-hidden="true"></div>
+
+<aside class="kpi-modal" id="kpiModal" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+  <div class="kpi-modal-header">
+    <div class="kpi-modal-heading">
+      <span class="kpi-modal-eyebrow">Attendance Breakdown</span>
+      <h2 class="kpi-modal-title" id="kpiModalTitle">Employees</h2>
+      <p class="kpi-modal-subtitle" id="kpiModalSubtitle">Loading list...</p>
+      <div class="kpi-modal-meta">
+        <span class="kpi-modal-chip" id="kpiModalTypeChip">Overview</span>
+        <span class="kpi-modal-chip kpi-modal-chip-muted" id="kpiModalCountChip">0 records</span>
+      </div>
+    </div>
+    <button class="kpi-modal-close" id="kpiModalClose" aria-label="Close modal">
+      <i data-feather="x" style="width:18px;height:18px;"></i>
+    </button>
+  </div>
+  
+  <div class="kpi-modal-body">
+    <!-- Mini KPI Cards Navigation -->
+    <div class="kpi-modal-cards" id="kpiModalCards"></div>
+    
+    <div class="kpi-modal-table-wrap">
+      <table class="kpi-modal-table">
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>ID</th>
+            <th>Department</th>
+            <th id="kpiModalTimeHeader">Time</th>
+          </tr>
+        </thead>
+        <tbody id="kpiModalBody">
+        </tbody>
+      </table>
+    </div>
+    <div id="kpiModalEmpty" class="kpi-modal-empty" style="display:none;">
+      <div class="kpi-modal-empty-icon">
+        <i data-feather="inbox" style="width:20px;height:20px;"></i>
+      </div>
+      <p class="kpi-modal-empty-title">No employees found</p>
+      <p class="kpi-modal-empty-text">There are no matching employees in this KPI category right now.</p>
+    </div>
+  </div>
+</aside>

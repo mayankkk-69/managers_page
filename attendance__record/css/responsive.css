@@ -1,0 +1,99 @@
+﻿/* ======================================================
+   CSS: responsive.css
+   Breakpoint overrides for tablet and mobile viewports.
+   ====================================================== */
+
+@media (max-width: 1200px) {
+  .kpi-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .table-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .table-section-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .page-header {
+    width: calc(100% - 24px);
+  }
+}
+
+@media (max-width: 768px) {
+  .main-wrapper {
+    width: 100%;
+    padding: 14px;
+  }
+
+  .page-header {
+    margin-top: 12px;
+    border-radius: 16px;
+    padding: 16px 14px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .control-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-wrap {
+    min-width: 0;
+  }
+
+  .chips-wrap {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+  }
+
+  .drawer {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header-brand-title h1 {
+    font-size: 1.2rem;
+  }
+
+  .header-brand-title p {
+    font-size: 0.84rem;
+  }
+
+  .click-hint {
+    display: none;
+  }
+
+  #toastContainer {
+    bottom: 12px;
+    right: 12px;
+    left: 12px;
+  }
+
+  .toast {
+    min-width: 0;
+    width: 100%;
+  }
+}
