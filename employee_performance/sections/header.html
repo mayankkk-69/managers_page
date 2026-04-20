@@ -1,0 +1,66 @@
+<div class="perf-header">
+
+    <!-- Left: Title + active range badge -->
+    <div class="ph-left">
+        <div class="ph-eyebrow">
+            <i class="fa-solid fa-chart-line"></i>
+            Performance
+        </div>
+        <h1 class="ph-title">Employee Performance</h1>
+        <div class="ph-subtitle-row">
+            <i class="fa-regular fa-calendar-check"></i>
+            <span id="ph-subtitle-range">Showing data for this month</span>
+            <span class="ph-dot">·</span>
+            <span class="ph-active-badge" id="ph-active-badge">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Right: Controls -->
+    <div class="ph-controls">
+
+        <!-- Employee selector (admin/manager only) -->
+        <div class="ph-employee-wrap" id="ph-employee-container">
+            <i class="fa-solid fa-user-tie"></i>
+            <select class="ph-employee-select" id="employeeSelect">
+                <option value="">Loading employees...</option>
+            </select>
+        </div>
+
+        <!-- Range cluster -->
+        <div class="ph-range-cluster">
+
+            <!-- Quick-range pills -->
+            <div class="ph-range-group" id="rangeGroup">
+                <button class="ph-range-btn" data-range="day">Today</button>
+                <button class="ph-range-btn" data-range="week">Week</button>
+                <button class="ph-range-btn active" data-range="month">Month</button>
+                <button class="ph-range-btn" data-range="quarter">Quarter</button>
+                <button class="ph-range-btn ph-range-custom-btn" data-range="custom" id="ph-custom-trigger">
+                    <i class="fa-regular fa-calendar-days"></i> Custom
+                </button>
+            </div>
+
+            <!-- Custom date picker (shown when "Custom" is clicked) -->
+            <div class="ph-custom-picker" id="ph-custom-picker">
+                <div class="ph-custom-inner">
+                    <div class="ph-date-field">
+                        <label class="ph-date-label" for="ph-date-from">From</label>
+                        <input type="date" id="ph-date-from" class="ph-date-input">
+                    </div>
+                    <span class="ph-date-arrow"><i class="fa-solid fa-arrow-right-long"></i></span>
+                    <div class="ph-date-field">
+                        <label class="ph-date-label" for="ph-date-to">To</label>
+                        <input type="date" id="ph-date-to" class="ph-date-input">
+                    </div>
+                    <button class="ph-apply-btn" id="ph-apply-custom">
+                        <i class="fa-solid fa-check"></i> Apply
+                    </button>
+                    <button class="ph-cancel-btn" id="ph-cancel-custom">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

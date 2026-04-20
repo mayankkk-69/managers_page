@@ -1,0 +1,63 @@
+<div class="summary-grid">
+
+    <!-- Total Tasks -->
+    <div class="stat-card sc-total">
+        <div class="sc-top">
+            <div class="sc-icon ico-total">
+                <i class="fa-solid fa-list-check"></i>
+            </div>
+            <span class="sc-label">Total Tasks</span>
+        </div>
+        <div class="sc-value" id="stat-total">--</div>
+        <div class="sc-sub">All assigned substages</div>
+        <div class="sc-bar-wrap">
+            <div class="sc-bar-fill gray" id="bar-total" style="width: 100%;"></div>
+        </div>
+    </div>
+
+    <!-- Completed -->
+    <div class="stat-card sc-done">
+        <div class="sc-top">
+            <div class="sc-icon ico-done">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <span class="sc-label">Completed</span>
+        </div>
+        <div class="sc-value" id="stat-done">--</div>
+        <div class="sc-sub" id="stat-done-sub">out of -- tasks</div>
+        <div class="sc-bar-wrap">
+            <div class="sc-bar-fill green" id="bar-done" style="width: 0%;"></div>
+        </div>
+    </div>
+
+    <!-- On Time -->
+    <div class="stat-card sc-ontime">
+        <div class="sc-top">
+            <div class="sc-icon ico-ontime">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <span class="sc-label">On Time</span>
+        </div>
+        <div class="sc-value" id="stat-ontime">--%</div>
+        <div class="sc-sub" id="stat-ontime-sub">-- tasks without delays</div>
+        <div class="sc-bar-wrap">
+            <div class="sc-bar-fill blue" id="bar-ontime" style="width: 0%;"></div>
+        </div>
+    </div>
+
+    <!-- Late / Extended -->
+    <div class="stat-card sc-late">
+        <div class="sc-top">
+            <div class="sc-icon ico-late">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            <span class="sc-label">Time Extended</span>
+        </div>
+        <div class="sc-value" id="stat-late">--</div>
+        <div class="sc-sub" id="stat-late-sub">-- avg days over deadline</div>
+        <div class="sc-bar-wrap">
+            <div class="sc-bar-fill red" id="bar-late" style="width: 0%;"></div>
+        </div>
+    </div>
+
+</div>
