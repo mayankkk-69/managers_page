@@ -1,0 +1,143 @@
+﻿/* ======================================================
+   CSS: mobile.css
+   Mobile / small-screen layout overrides.
+   ====================================================== */
+
+@media (max-width: 900px) {
+  .kpi-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .table-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .table-section-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-wrapper {
+    padding: 14px;
+  }
+
+  .page-header {
+    width: calc(100% - 20px);
+    margin: 10px auto 0;
+    padding: 16px 14px;
+    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-actions {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .btn-icon-minimal.with-text {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .control-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .search-wrap { min-width: 0; }
+  .date-wrap, .select-wrap { width: 100%; }
+
+  #datePicker, #statusFilter { width: 100%; min-width: 0; }
+
+  .chips-wrap {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .drawer {
+    width: 100%;
+    max-height: 95vh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(100%) scale(1);
+  }
+
+  .drawer.open {
+    transform: translateY(0) scale(1);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #toastContainer {
+    bottom: 12px;
+    right: 12px;
+    left: 12px;
+  }
+
+  .toast {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 480px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header-brand-title h1 {
+    font-size: 1.15rem;
+  }
+
+  .header-brand-title p {
+    font-size: 0.82rem;
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .status-selector {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  td, th {
+    padding: 10px 12px;
+    font-size: 0.72rem;
+  }
+
+  .emp-avatar {
+    width: 34px;
+    height: 34px;
+    font-size: 0.75rem;
+  }
+}

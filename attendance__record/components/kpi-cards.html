@@ -1,0 +1,93 @@
+<!-- ══════════════════════════════════════════════
+     COMPONENT: kpi-cards.html
+     5 metric summary cards: Total, Present, Absent,
+     Late, On Leave — with trend labels & progress bars.
+════════════════════════════════════════════════ -->
+<section class="kpi-grid" aria-label="Attendance Summary">
+
+  <!-- Total Employees -->
+  <article class="kpi-card total" id="kpiTotal" role="region" aria-label="Total Employees">
+    <div class="kpi-card-inner">
+      <div class="kpi-info">
+        <p class="kpi-label">Total Employees</p>
+        <p class="kpi-value" id="kpiTotalVal" aria-live="polite">0</p>
+        <span class="kpi-trend neutral" id="kpiTotalTrend">&#8212; No change</span>
+      </div>
+      <div class="kpi-icon-wrap" aria-hidden="true">
+        <i data-feather="users" style="width:20px;height:20px;"></i>
+      </div>
+    </div>
+    <div class="kpi-bar" aria-hidden="true">
+      <div class="kpi-bar-fill" id="kpiTotalBar"></div>
+    </div>
+  </article>
+
+  <!-- Present -->
+  <article class="kpi-card present" id="kpiPresent" role="region" aria-label="Present Today">
+    <div class="kpi-card-inner">
+      <div class="kpi-info">
+        <p class="kpi-label">Present</p>
+        <p class="kpi-value" id="kpiPresentVal" aria-live="polite">0</p>
+        <span class="kpi-trend up" id="kpiPresentTrend">↑ Loading...</span>
+      </div>
+      <div class="kpi-icon-wrap" aria-hidden="true">
+        <i data-feather="user-check" style="width:20px;height:20px;"></i>
+      </div>
+    </div>
+    <div class="kpi-bar" aria-hidden="true">
+      <div class="kpi-bar-fill" id="kpiPresentBar"></div>
+    </div>
+  </article>
+
+  <!-- Absent -->
+  <article class="kpi-card absent" id="kpiAbsent" role="region" aria-label="Absent Today">
+    <div class="kpi-card-inner">
+      <div class="kpi-info">
+        <p class="kpi-label">Absent</p>
+        <p class="kpi-value" id="kpiAbsentVal" aria-live="polite">0</p>
+        <span class="kpi-trend down" id="kpiAbsentTrend">↑ Loading...</span>
+      </div>
+      <div class="kpi-icon-wrap" aria-hidden="true">
+        <i data-feather="user-x" style="width:20px;height:20px;"></i>
+      </div>
+    </div>
+    <div class="kpi-bar" aria-hidden="true">
+      <div class="kpi-bar-fill" id="kpiAbsentBar"></div>
+    </div>
+  </article>
+
+  <!-- Late -->
+  <article class="kpi-card late" id="kpiLate" role="region" aria-label="Late Arrivals">
+    <div class="kpi-card-inner">
+      <div class="kpi-info">
+        <p class="kpi-label">Late</p>
+        <p class="kpi-value" id="kpiLateVal" aria-live="polite">0</p>
+        <span class="kpi-trend down" id="kpiLateTrend">↑ Loading...</span>
+      </div>
+      <div class="kpi-icon-wrap" aria-hidden="true">
+        <i data-feather="clock" style="width:20px;height:20px;"></i>
+      </div>
+    </div>
+    <div class="kpi-bar" aria-hidden="true">
+      <div class="kpi-bar-fill" id="kpiLateBar"></div>
+    </div>
+  </article>
+
+  <!-- On Leave -->
+  <article class="kpi-card leave" id="kpiLeave" role="region" aria-label="On Leave">
+    <div class="kpi-card-inner">
+      <div class="kpi-info">
+        <p class="kpi-label">On Leave</p>
+        <p class="kpi-value" id="kpiLeaveVal" aria-live="polite">0</p>
+        <span class="kpi-trend neutral" id="kpiLeaveTrend">&#8212; Loading...</span>
+      </div>
+      <div class="kpi-icon-wrap" aria-hidden="true">
+        <i data-feather="briefcase" style="width:20px;height:20px;"></i>
+      </div>
+    </div>
+    <div class="kpi-bar" aria-hidden="true">
+      <div class="kpi-bar-fill" id="kpiLeaveBar"></div>
+    </div>
+  </article>
+
+</section>

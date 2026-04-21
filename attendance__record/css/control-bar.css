@@ -1,0 +1,151 @@
+﻿/* ======================================================
+   CSS: control-bar.css
+   Filter row with stronger grouping and polish.
+   ====================================================== */
+
+.control-bar {
+  background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(246,252,250,0.9));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 230px;
+}
+
+.search-wrap svg {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  transition: color var(--dur-base);
+}
+
+#searchInput {
+  width: 100%;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  padding: 0 12px 0 38px;
+  font-size: 0.84rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  transition: all var(--dur-base) var(--ease-smooth);
+  outline: none;
+}
+
+#searchInput:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+.search-wrap:focus-within svg {
+  color: var(--accent-primary);
+}
+
+.date-wrap,
+.select-wrap {
+  position: relative;
+}
+
+.date-wrap svg,
+.select-wrap svg {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  width: 15px;
+  height: 15px;
+  pointer-events: none;
+}
+
+.date-wrap svg { left: 10px; }
+.select-wrap svg { right: 10px; }
+
+#datePicker,
+#statusFilter {
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  font-size: 0.84rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  outline: none;
+  transition: all var(--dur-base) var(--ease-smooth);
+}
+
+#datePicker {
+  padding: 0 12px 0 32px;
+  min-width: 156px;
+  cursor: pointer;
+}
+
+#statusFilter {
+  padding: 0 32px 0 12px;
+  min-width: 144px;
+  appearance: none;
+  cursor: pointer;
+}
+
+#datePicker:focus,
+#statusFilter:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+.chips-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.chips-label {
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-right: 2px;
+}
+
+.chip {
+  height: 31px;
+  padding: 0 11px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--dur-base) var(--ease-spring);
+  font-family: inherit;
+}
+
+.chip:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: #f2fcfa;
+  transform: translateY(-1px);
+}
+
+.chip.active {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-h));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 6px 12px rgba(15, 118, 110, 0.26);
+}

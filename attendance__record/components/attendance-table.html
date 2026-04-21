@@ -1,0 +1,149 @@
+<!-- ══════════════════════════════════════════════
+     COMPONENT: attendance-table.html
+     Manager's Attendance Monitoring Grid.
+     - No checkboxes (manager acts per-employee)
+     - Click any row to open the edit popup
+     - Columns: Employee, Dept, Status, Punch In, Punch Out, Hours Worked
+════════════════════════════════════════════════ -->
+<section class="table-section" aria-label="Employee Attendance Records">
+
+  <!-- Table Header Bar -->
+  <div class="table-section-header">
+    <div>
+      <p class="table-section-title">Employee Attendance</p>
+      <p class="table-section-subtitle" id="tableSubtitle">Showing all employees for today</p>
+    </div>
+    <div class="table-section-actions">
+      <span class="click-hint">
+        <i data-feather="mouse-pointer" style="width:12px;height:12px;"></i>
+        Click any row to view &amp; edit
+      </span>
+      <button class="btn-secondary" id="refreshBtn" aria-label="Refresh attendance data">
+        <i data-feather="refresh-cw" style="width:13px;height:13px;"></i> Refresh
+      </button>
+      <button class="btn-secondary" id="printBtn" aria-label="Print attendance sheet">
+        <i data-feather="printer" style="width:13px;height:13px;"></i> Print
+      </button>
+    </div>
+  </div>
+
+  <!-- Scrollable Table Wrapper -->
+  <div class="table-scroll" role="region" aria-label="Scrollable attendance table">
+    <table id="attendanceTable" aria-label="Employee attendance table">
+
+      <!-- Column Headers -->
+      <thead>
+        <tr>
+          <th class="sortable" data-sort="name" aria-sort="none">
+            Employee <span class="sort-icon" aria-hidden="true">↑</span>
+          </th>
+          <th class="sortable" data-sort="dept" aria-sort="none">
+            Department <span class="sort-icon" aria-hidden="true">↑</span>
+          </th>
+          <th>Status</th>
+          <th class="sortable" data-sort="checkIn" aria-sort="none">
+            Punch In <span class="sort-icon" aria-hidden="true">↑</span>
+          </th>
+          <th class="sortable" data-sort="checkOut" aria-sort="none">
+            Punch Out <span class="sort-icon" aria-hidden="true">↑</span>
+          </th>
+          <th class="sortable" data-sort="hours" aria-sort="none">
+            Hours Worked <span class="sort-icon" aria-hidden="true">↑</span>
+          </th>
+        </tr>
+      </thead>
+
+      <!-- Table Body — populated by table.js -->
+      <tbody id="tableBody">
+
+        <!-- Skeleton Loader Row 1 -->
+        <tr class="skeleton-row" aria-hidden="true">
+          <td>
+            <div style="display:flex;gap:10px;align-items:center;">
+              <div class="skeleton-block" style="width:40px;height:40px;border-radius:50%;"></div>
+              <div>
+                <div class="skeleton-block" style="width:120px;height:12px;margin-bottom:6px;"></div>
+                <div class="skeleton-block" style="width:70px;height:10px;"></div>
+              </div>
+            </div>
+          </td>
+          <td><div class="skeleton-block" style="width:80px;height:12px;"></div></td>
+          <td><div class="skeleton-block" style="width:70px;height:22px;border-radius:99px;"></div></td>
+          <td><div class="skeleton-block" style="width:70px;height:12px;"></div></td>
+          <td><div class="skeleton-block" style="width:70px;height:12px;"></div></td>
+          <td><div class="skeleton-block" style="width:100px;height:12px;"></div></td>
+        </tr>
+
+        <!-- Skeleton Loader Row 2 -->
+        <tr class="skeleton-row" aria-hidden="true">
+          <td>
+            <div style="display:flex;gap:10px;align-items:center;">
+              <div class="skeleton-block" style="width:40px;height:40px;border-radius:50%;"></div>
+              <div>
+                <div class="skeleton-block" style="width:100px;height:12px;margin-bottom:6px;"></div>
+                <div class="skeleton-block" style="width:60px;height:10px;"></div>
+              </div>
+            </div>
+          </td>
+          <td><div class="skeleton-block" style="width:65px;height:12px;"></div></td>
+          <td><div class="skeleton-block" style="width:70px;height:22px;border-radius:99px;"></div></td>
+          <td><div class="skeleton-block" style="width:70px;height:12px;"></div></td>
+          <td><div class="skeleton-block" style="width:70px;height:12px;"></div></td>
+          <td><div class="skeleton-block" style="width:100px;height:12px;"></div></td>
+        </tr>
+
+        <!-- Skeleton Loader Row 3 -->
+        <tr class="skeleton-row" aria-hidden="true">
+          <td>
+            <div style="display:flex;gap:10px;align-items:center;">
+              <div class="skeleton-block" style="width:40px;height:40px;border-radius:50%;"></div>
+              <div>
+                <div class="skeleton-block" style="width:140px;height:12px;margin-bottom:6px;"></div>
+                <div class="skeleton-block" style="width:75px;height:10px;"></div>
+              </div>
+            </div>
+          </td>
+          <td><div class="skeleton-block" style="width:90px;height:12px;"></div></td>
+          <td><div class="skeleton-block" style="width:70px;height:22px;border-radius:99px;"></div></td>
+          <td><div class="skeleton-block" style="width:70px;height:12px;"></div></td>
+          <td><div class="skeleton-block" style="width:70px;height:12px;"></div></td>
+          <td><div class="skeleton-block" style="width:100px;height:12px;"></div></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Table Footer / Pagination -->
+  <div class="table-footer">
+    <p class="pagination-info" id="paginationInfo" aria-live="polite">
+      Showing <strong>0–0</strong> of <strong>0</strong> employees
+    </p>
+    <nav class="pagination-controls" aria-label="Table pagination">
+      <button class="page-btn" id="pagePrev" aria-label="Previous page" disabled>
+        <i data-feather="chevron-left" style="width:14px;height:14px;"></i>
+      </button>
+      <div id="pageNumbers" style="display:flex;gap:4px;" aria-label="Page numbers"></div>
+      <button class="page-btn" id="pageNext" aria-label="Next page">
+        <i data-feather="chevron-right" style="width:14px;height:14px;"></i>
+      </button>
+    </nav>
+  </div>
+
+</section>
+
+<!-- Inline Status Popup (positioned by JS) -->
+<div class="status-popup" id="statusPopup" role="listbox" aria-label="Change attendance status">
+  <div class="status-popup-item" data-val="present" role="option" tabindex="0">
+    <span class="dot" style="background:var(--present-dot);"></span> Present
+  </div>
+  <div class="status-popup-item" data-val="absent" role="option" tabindex="0">
+    <span class="dot" style="background:var(--absent-dot);"></span> Absent
+  </div>
+  <div class="status-popup-item" data-val="late" role="option" tabindex="0">
+    <span class="dot" style="background:var(--late-dot);"></span> Late
+  </div>
+  <div class="status-popup-item" data-val="leave" role="option" tabindex="0">
+    <span class="dot" style="background:var(--leave-dot);"></span> On Leave
+  </div>
+</div>

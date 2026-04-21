@@ -1,0 +1,62 @@
+<div class="card">
+
+    <!-- Toolbar -->
+    <div class="table-toolbar">
+        <!-- Search -->
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="taskSearch" placeholder="Search task, project, stage...">
+        </div>
+
+        <!-- Filter chips -->
+        <div class="filter-chips">
+            <button class="chip active" data-filter="all">All</button>
+            <button class="chip" data-filter="on_time">On Time</button>
+            <button class="chip" data-filter="late">Extended</button>
+            <button class="chip" data-filter="active">Active</button>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+        <table class="perf-table" id="taskTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Task / Substage</th>
+                    <th>Project</th>
+                    <th class="col-stage">Stage</th>
+                    <th class="col-deadline">Deadline</th>
+                    <th>Completed On</th>
+                    <th>Extension</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="taskTableBody">
+                <!-- Skeleton rows -->
+                <tr class="skeleton-row">
+                    <td colspan="8">
+                        <div class="skeleton skeleton-cell" style="width:100%; height: 18px;"></div>
+                    </td>
+                </tr>
+                <tr class="skeleton-row">
+                    <td colspan="8">
+                        <div class="skeleton skeleton-cell" style="width:80%; height: 18px;"></div>
+                    </td>
+                </tr>
+                <tr class="skeleton-row">
+                    <td colspan="8">
+                        <div class="skeleton skeleton-cell" style="width:90%; height: 18px;"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer: count + pagination -->
+    <div class="table-footer">
+        <span id="tableRowCount">Loading tasks...</span>
+        <div class="table-footer-right" id="tablePagination"></div>
+    </div>
+
+</div>

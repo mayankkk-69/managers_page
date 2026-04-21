@@ -1,0 +1,81 @@
+﻿/* ======================================================
+   CSS: variables.css
+   Global design tokens - colors, spacing, shadows,
+   transitions, radii. Imported first by every page.
+   ====================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  /* Backgrounds */
+  --bg-base:    #EEF4F2;
+  --bg-surface: #FFFFFF;
+  --bg-muted:   #F5FAF8;
+  --bg-overlay: rgba(255, 255, 255, 0.78);
+  --bg-grad-1:  rgba(20, 184, 166, 0.14);
+  --bg-grad-2:  rgba(251, 146, 60, 0.11);
+  --bg-grad-3:  rgba(14, 116, 144, 0.09);
+
+  /* Accent */
+  --accent-primary:   #0F766E;
+  --accent-primary-h: #115E59;
+  --accent-light:     #DFF7F1;
+  --accent-ring:      rgba(15, 118, 110, 0.22);
+
+  /* Status: Present */
+  --present-bg:   #D1FAE5;
+  --present-text: #065F46;
+  --present-dot:  #10B981;
+
+  /* Status: Absent */
+  --absent-bg:    #FFE4E6;
+  --absent-text:  #9F1239;
+  --absent-dot:   #F43F5E;
+
+  /* Status: Late */
+  --late-bg:      #FEF3C7;
+  --late-text:    #92400E;
+  --late-dot:     #F59E0B;
+
+  /* Status: Leave */
+  --leave-bg:     #E0F2FE;
+  --leave-text:   #075985;
+  --leave-dot:    #0284C7;
+
+  /* KPI Card Gradients */
+  --kpi-total-from:   #0EA5A0;  --kpi-total-to:   #0F766E;
+  --kpi-present-from: #15803D;  --kpi-present-to: #22C55E;
+  --kpi-absent-from:  #E11D48;  --kpi-absent-to:  #FB7185;
+  --kpi-late-from:    #D97706;  --kpi-late-to:    #FBBF24;
+  --kpi-leave-from:   #0284C7;  --kpi-leave-to:   #06B6D4;
+
+  /* Neutrals */
+  --text-primary:   #123038;
+  --text-secondary: #4E6A72;
+  --text-muted:     #86A0A7;
+  --border:         #D8E6E2;
+  --border-focus:   #0F766E;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 6px rgba(18, 48, 56, 0.06), 0 1px 2px rgba(18, 48, 56, 0.04);
+  --shadow-md: 0 8px 22px rgba(18, 48, 56, 0.09), 0 2px 8px rgba(18, 48, 56, 0.05);
+  --shadow-lg: 0 18px 38px rgba(18, 48, 56, 0.12), 0 6px 18px rgba(18, 48, 56, 0.08);
+  --shadow-xl: 0 30px 66px rgba(18, 48, 56, 0.14);
+
+  /* Transitions */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 400ms;
+
+  /* Border Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 26px;
+
+  /* Layout */
+  --drawer-w:  380px;
+  --header-h:  70px;
+}

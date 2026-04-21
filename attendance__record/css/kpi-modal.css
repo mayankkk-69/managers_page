@@ -1,0 +1,432 @@
+/* ======================================================
+   CSS: kpi-modal.css
+   Polished drill-down modal for KPI cards.
+   ====================================================== */
+
+.kpi-overlay {
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(11, 26, 32, 0.34), rgba(11, 26, 32, 0.46));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 300;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.kpi-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.kpi-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -46%) scale(0.96);
+  width: min(760px, 92vw);
+  max-height: min(78vh, 760px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 252, 251, 0.97));
+  border: 1px solid rgba(216, 230, 226, 0.96);
+  border-radius: 28px;
+  box-shadow: 0 32px 70px rgba(10, 24, 30, 0.22);
+  z-index: 301;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  transition: transform 280ms cubic-bezier(0.2, 0.9, 0.2, 1), opacity 220ms ease, visibility 220ms ease;
+}
+
+.kpi-modal.open {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+.kpi-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 24px 28px 18px;
+  background:
+    radial-gradient(circle at top right, rgba(20, 184, 166, 0.12), transparent 38%),
+    linear-gradient(180deg, rgba(244, 250, 248, 0.95), rgba(255, 255, 255, 0.98));
+  border-bottom: 1px solid rgba(216, 230, 226, 0.85);
+}
+
+.kpi-modal-heading {
+  min-width: 0;
+}
+
+.kpi-modal-eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(15, 118, 110, 0.1);
+  color: var(--accent-primary);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.kpi-modal-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.15;
+}
+
+.kpi-modal-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.kpi-modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.kpi-modal-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-h));
+  color: #fff;
+  font-size: 0.76rem;
+  font-weight: 700;
+  box-shadow: 0 8px 16px rgba(15, 118, 110, 0.16);
+}
+
+.kpi-modal-chip-muted {
+  background: #edf7f5;
+  color: var(--text-secondary);
+  box-shadow: none;
+}
+
+.kpi-modal-close {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: 1px solid rgba(216, 230, 226, 0.9);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 180ms ease;
+}
+
+.kpi-modal-close:hover {
+  background: #f4fbf9;
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+
+.kpi-modal-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  flex: 1;
+}
+
+.kpi-modal-table-wrap {
+  overflow: auto;
+  flex: 1;
+}
+
+.kpi-modal-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.kpi-modal-table th,
+.kpi-modal-table td {
+  padding: 16px 28px;
+  text-align: left;
+  border-bottom: 1px solid rgba(216, 230, 226, 0.7);
+  font-size: 0.88rem;
+}
+
+.kpi-modal-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: rgba(240, 247, 245, 0.97);
+  color: #5b7780;
+  font-weight: 800;
+  font-size: 0.71rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.kpi-modal-table tbody tr {
+  transition: background-color 160ms ease;
+}
+
+.kpi-modal-table tbody tr:hover {
+  background: rgba(242, 250, 248, 0.9);
+}
+
+.kpi-modal-table td {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.kpi-modal-table td.time-cell {
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.kpi-modal-employee {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.kpi-modal-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  box-shadow: 0 8px 18px rgba(18, 48, 56, 0.12);
+}
+
+.kpi-modal-employee-text {
+  min-width: 0;
+}
+
+.kpi-modal-employee-name {
+  display: block;
+  color: var(--text-primary);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpi-modal-employee-role {
+  display: block;
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpi-modal-dept {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: #eef7f5;
+  color: var(--text-secondary);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.kpi-modal-empty {
+  padding: 42px 24px 46px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.kpi-modal-empty-icon {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: #edf7f5;
+  color: var(--accent-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kpi-modal-empty-title {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.kpi-modal-empty-text {
+  margin-top: 6px;
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.kpi-modal-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px 28px;
+  background: rgba(248, 252, 251, 0.95);
+  border-bottom: 1px solid rgba(216, 230, 226, 0.8);
+}
+
+.kpi-modal-card {
+  flex: 1;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid rgba(216, 230, 226, 0.9);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 200ms ease;
+  box-shadow: 0 4px 12px rgba(10, 24, 30, 0.03);
+  user-select: none;
+}
+
+.kpi-modal-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-color);
+  box-shadow: 0 8px 24px rgba(10, 24, 30, 0.08);
+}
+
+.kpi-modal-card.active {
+  background: var(--card-color);
+  border-color: var(--card-color);
+  color: #fff;
+}
+
+.kpi-modal-card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(240, 247, 245, 0.8);
+  color: var(--card-color);
+  transition: all 200ms ease;
+}
+
+.kpi-modal-card.active .kpi-modal-card-icon {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.kpi-modal-card-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.kpi-modal-card-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-modal-card-val {
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text-primary);
+  transition: color 200ms ease;
+}
+
+.kpi-modal-card.active .kpi-modal-card-val {
+  color: #fff;
+}
+
+.kpi-modal-card-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-top: 3px;
+  transition: color 200ms ease;
+}
+
+.kpi-modal-card.active .kpi-modal-card-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 640px) {
+  .kpi-modal-cards {
+    padding: 12px 18px;
+    gap: 8px;
+  }
+  .kpi-modal-card {
+    min-width: calc(33.333% - 8px);
+    padding: 8px 10px;
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+  }
+  .kpi-modal-card-icon {
+    width: 28px;
+    height: 28px;
+  }
+  .kpi-modal-card-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+  .kpi-modal-card-val {
+    font-size: 1rem;
+  }
+  .kpi-modal-card-label {
+    font-size: 0.65rem;
+  }
+  .kpi-modal {
+    width: calc(100vw - 20px);
+    max-height: 84vh;
+    border-radius: 22px;
+  }
+
+  .kpi-modal-header {
+    padding: 18px 18px 16px;
+  }
+
+  .kpi-modal-table th,
+  .kpi-modal-table td {
+    padding: 14px 18px;
+  }
+
+  .kpi-modal-title {
+    font-size: 1.2rem;
+  }
+
+  .kpi-modal-subtitle {
+    font-size: 0.84rem;
+  }
+
+  .kpi-modal-employee-role {
+    font-size: 0.72rem;
+  }
+}
