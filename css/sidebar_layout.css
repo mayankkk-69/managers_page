@@ -1,0 +1,47 @@
+/**
+ * sidebar_layout.css
+ * Provides the core layout structure to accommodate the global sidebar
+ * on the Employee Performance page.
+ */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background: #f4f5f7;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    padding: 1.5rem;
+}
+
+/* Ensure the performance content doesn't get squashed */
+.app-wrap {
+    max-width: 1400px;
+    margin: 0;
+    padding: 20px 0;
+    width: 100%;
+}
+
+/* Hamburger visibility toggle */
+.mobile-hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: #fff;
+}
+
+@media (max-width: 1024px) {
+    .mobile-hamburger-btn {
+        display: flex;
+    }
+    .main-content {
+        padding: 1rem;
+    }
+}

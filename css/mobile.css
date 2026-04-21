@@ -1,0 +1,147 @@
+/* =====================================================
+   MOBILE RESPONSIVE  (max-width: 768px and 1024px)
+   ===================================================== */
+
+/* ── Tablets (≤ 1100px) ──────────────────────────── */
+@media (max-width: 1100px) {
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .charts-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── Mobile (≤ 768px) ────────────────────────────── */
+@media (max-width: 768px) {
+    .app-wrap {
+        padding: 14px 14px 48px;
+        gap: 14px;
+    }
+
+    /* Header */
+    .perf-header {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .ph-title {
+        font-size: 1.3rem;
+    }
+
+    .ph-controls {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .ph-employee-wrap {
+        width: 100%;
+    }
+
+    .ph-employee-select {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .ph-range-group {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    /* Summary */
+    .summary-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .sc-value {
+        font-size: 1.6rem;
+    }
+
+    /* Charts */
+    .charts-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .chart-canvas-wrap {
+        height: 190px;
+    }
+
+    /* Table toolbar */
+    .table-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 14px;
+        gap: 8px;
+    }
+
+    .search-box {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .filter-chips {
+        width: 100%;
+    }
+
+    /* Table: hide non-critical columns on small screens */
+    .col-deadline,
+    .col-stage {
+        display: none;
+    }
+
+    .perf-table th,
+    .perf-table td {
+        padding: 11px 10px;
+        font-size: 0.78rem;
+    }
+
+    .perf-table th:first-child,
+    .perf-table td:first-child { padding-left: 14px; }
+    .perf-table th:last-child,
+    .perf-table td:last-child  { padding-right: 14px; }
+
+    .td-task-name {
+        max-width: 140px;
+    }
+
+    .td-project {
+        max-width: 120px;
+    }
+
+    /* Table footer */
+    .table-footer {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+        padding: 10px 14px;
+    }
+
+    /* Card head padding */
+    .card-head {
+        padding: 14px 14px;
+    }
+}
+
+/* ── Small Mobile (≤ 480px) ──────────────────────── */
+@media (max-width: 480px) {
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ph-title {
+        font-size: 1.2rem;
+    }
+
+    .perf-table {
+        font-size: 0.75rem;
+    }
+}
