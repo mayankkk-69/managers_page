@@ -71,29 +71,23 @@ if ($isAdmin || $isMgr) {
     $target_user_id = $session_user_id;
 }
 
-// ── Task list ────────────────────────────────────────────
+// ── Task list (Now from detailed performance table) ─────
 $taskQ = $conn->prepare("
     SELECT
-        pss.id,
-        pss.title as substage_name,
-        pss.status,
-        pss.start_date,
-        pss.end_date,
-        pss.updated_at,
-        CONCAT('Stage ', ps.stage_number) as stage_name,
-        p.title as project_name
-    FROM project_substages pss
-    JOIN project_stages ps ON ps.id = pss.stage_id
-    JOIN projects p        ON p.id  = ps.project_id
-    WHERE pss.assigned_to  = ?
-      AND pss.deleted_at   IS NULL
-      AND ps.deleted_at    IS NULL
-      AND p.deleted_at     IS NULL
-      AND (
-          (pss.updated_at >= {$since} AND pss.updated_at <= {$until})
-          OR pss.status NOT IN ('completed', 'rejected')
-      )
-    ORDER BY pss.updated_at DESC
+        epr.id,
+        epr.task_title as substage_name,
+        'completed' as status,
+        epr.status as perf_status,
+        epr.start_date,
+        epr.final_deadline as end_date,
+        epr.completion_date as updated_at,
+        epr.delay_days,
+        p.title as project_name,
+        epr.extension_count
+    FROM employee_performance_records epr
+    LEFT JOIN projects p ON p.id = epr.project_id
+    WHERE epr.user_id = ?
+    ORDER BY epr.completion_date DESC
 ");
 $taskQ->bind_param("i", $target_user_id);
 $taskQ->execute();
@@ -110,33 +104,35 @@ $lateCount = 0;
 while ($row = $taskRows->fetch_assoc()) {
     $tasks[] = $row;
     $total++;
+    $done++; // Every record in this table is a completed task
 
-    if ($row['status'] === 'completed') {
-        $done++;
-        $completedAt = $row['updated_at'];
-        $deadline    = $row['end_date'];
-        if ($completedAt && $deadline && $completedAt != '0000-00-00 00:00:00' && $deadline != '0000-00-00 00:00:00') {
-            $diff = (int)round((strtotime($completedAt) - strtotime($deadline)) / 86400);
-            if ($diff <= 0) {
-                $onTime++;
-            } else {
-                $late++;
-                $daysSum += $diff;
-                $lateCount++;
-            }
-        } else {
-            $onTime++;
-        }
+    if ($row['status'] === 'on_time') {
+        $onTime++;
+    } else if ($row['status'] === 'late') {
+        $late++;
+        $daysSum += (int)$row['delay_days'];
+        $lateCount++;
     }
 }
 
 $avgDaysOver = $lateCount > 0 ? round($daysSum / $lateCount, 1) : 0;
+
+// Check total count regardless of user
+$totalRecords = $conn->query("SELECT COUNT(*) FROM employee_performance_records")->fetch_row()[0];
+$firstRecord = $conn->query("SELECT * FROM employee_performance_records LIMIT 1")->fetch_assoc();
 
 // ── Trend data ────────────────────────────────────────────
 $trend = buildTrend($conn, $target_user_id, $range, $custom_from, $custom_to);
 
 // ── Response ─────────────────────────────────────────────
 echo json_encode([
+    'debug' => [
+        'target_user_id' => $target_user_id,
+        'since' => $since,
+        'until' => $until,
+        'total_db_records' => $totalRecords,
+        'sample_record' => $firstRecord
+    ],
     'stats' => [
         'total'       => $total,
         'done'        => $done,
@@ -161,14 +157,12 @@ function buildTrend($conn, $uid, $range, $from = null, $to = null) {
             $labels[] = sprintf('%02d:00', $h);
             $q = $conn->prepare("
                 SELECT
-                    SUM(CASE WHEN updated_at <= end_date THEN 1 ELSE 0 END) as ot,
-                    SUM(CASE WHEN updated_at >  end_date THEN 1 ELSE 0 END) as lt
-                FROM project_substages
-                WHERE assigned_to = ?
-                  AND status = 'completed'
-                  AND DATE(updated_at) = CURDATE()
-                  AND HOUR(updated_at) = ?
-                  AND deleted_at IS NULL
+                    SUM(CASE WHEN status = 'on_time' THEN 1 ELSE 0 END) as ot,
+                    SUM(CASE WHEN status = 'late'    THEN 1 ELSE 0 END) as lt
+                FROM employee_performance_records
+                WHERE user_id = ?
+                  AND DATE(completion_date) = CURDATE()
+                  AND HOUR(completion_date) = ?
             ");
             $q->bind_param("ii", $uid, $h);
             $q->execute();
@@ -189,13 +183,11 @@ function buildTrend($conn, $uid, $range, $from = null, $to = null) {
             $labels[] = date('D', strtotime($day));
             $q = $conn->prepare("
                 SELECT
-                    SUM(CASE WHEN updated_at <= end_date THEN 1 ELSE 0 END) as ot,
-                    SUM(CASE WHEN updated_at >  end_date THEN 1 ELSE 0 END) as lt
-                FROM project_substages
-                WHERE assigned_to = ?
-                  AND status = 'completed'
-                  AND DATE(updated_at) = ?
-                  AND deleted_at IS NULL
+                    SUM(CASE WHEN status = 'on_time' THEN 1 ELSE 0 END) as ot,
+                    SUM(CASE WHEN status = 'late'    THEN 1 ELSE 0 END) as lt
+                FROM employee_performance_records
+                WHERE user_id = ?
+                  AND DATE(completion_date) = ?
             ");
             $q->bind_param("is", $uid, $day);
             $q->execute();
@@ -225,13 +217,11 @@ function buildTrend($conn, $uid, $range, $from = null, $to = null) {
                 $labels[] = date('d M', $ptr);
                 $q = $conn->prepare("
                     SELECT
-                        SUM(CASE WHEN updated_at <= end_date THEN 1 ELSE 0 END) as ot,
-                        SUM(CASE WHEN updated_at >  end_date THEN 1 ELSE 0 END) as lt
-                    FROM project_substages
-                    WHERE assigned_to = ?
-                      AND status = 'completed'
-                      AND DATE(updated_at) BETWEEN ? AND ?
-                      AND deleted_at IS NULL
+                        SUM(CASE WHEN status = 'on_time' THEN 1 ELSE 0 END) as ot,
+                        SUM(CASE WHEN status = 'late'    THEN 1 ELSE 0 END) as lt
+                    FROM employee_performance_records
+                    WHERE user_id = ?
+                      AND DATE(completion_date) BETWEEN ? AND ?
                 ");
                 $q->bind_param("iss", $uid, $wStart, $wEnd);
                 $q->execute();
@@ -247,13 +237,11 @@ function buildTrend($conn, $uid, $range, $from = null, $to = null) {
                 $labels[] = date('d M', $ptr);
                 $q = $conn->prepare("
                     SELECT
-                        SUM(CASE WHEN updated_at <= end_date THEN 1 ELSE 0 END) as ot,
-                        SUM(CASE WHEN updated_at >  end_date THEN 1 ELSE 0 END) as lt
-                    FROM project_substages
-                    WHERE assigned_to = ?
-                      AND status = 'completed'
-                      AND DATE(updated_at) = ?
-                      AND deleted_at IS NULL
+                        SUM(CASE WHEN status = 'on_time' THEN 1 ELSE 0 END) as ot,
+                        SUM(CASE WHEN status = 'late'    THEN 1 ELSE 0 END) as lt
+                    FROM employee_performance_records
+                    WHERE user_id = ?
+                      AND DATE(completion_date) = ?
                 ");
                 $q->bind_param("is", $uid, $day);
                 $q->execute();
@@ -277,13 +265,11 @@ function buildTrend($conn, $uid, $range, $from = null, $to = null) {
         $labels[] = 'W' . date('W', strtotime($start));
         $q = $conn->prepare("
             SELECT
-                SUM(CASE WHEN updated_at <= end_date THEN 1 ELSE 0 END) as ot,
-                SUM(CASE WHEN updated_at >  end_date THEN 1 ELSE 0 END) as lt
-            FROM project_substages
-            WHERE assigned_to = ?
-              AND status = 'completed'
-              AND DATE(updated_at) BETWEEN ? AND ?
-              AND deleted_at IS NULL
+                SUM(CASE WHEN status = 'on_time' THEN 1 ELSE 0 END) as ot,
+                SUM(CASE WHEN status = 'late'    THEN 1 ELSE 0 END) as lt
+            FROM employee_performance_records
+            WHERE user_id = ?
+              AND DATE(completion_date) BETWEEN ? AND ?
         ");
         $q->bind_param("iss", $uid, $start, $end);
         $q->execute();

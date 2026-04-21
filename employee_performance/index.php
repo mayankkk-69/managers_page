@@ -35,14 +35,28 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="css/charts.css">
     <link rel="stylesheet" href="css/modal.css">
     <link rel="stylesheet" href="css/mobile.css">  <!-- always last -->
-</head>
-<body>
 
-<div class="app-wrap">
-    <div id="section-header"></div>
-    <div id="section-summary"></div>
-    <div id="section-charts"></div>
-    <div id="section-task-table"></div>
+    <!-- Sidebar Integration -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script>window.SIDEBAR_BASE_PATH = '../studio_users/';</script>
+    <script src="../studio_users/components/sidebar-loader.js" defer></script>
+    <link rel="stylesheet" href="../studio_users/components/sidebar.css">
+    <link rel="stylesheet" href="../studio_users/header.css">
+    <link rel="stylesheet" href="css/sidebar_layout.css">
+</head>
+<body class="el-1">
+
+<div class="dashboard-container">
+    <div id="sidebar-mount"></div>
+
+    <main class="main-content">
+        <div class="app-wrap">
+            <div id="section-header"></div>
+            <div id="section-summary"></div>
+            <div id="section-charts"></div>
+            <div id="section-task-table"></div>
+        </div>
+    </main>
 </div>
 
 <!-- Task Detail Modal -->
